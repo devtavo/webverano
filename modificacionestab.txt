@@ -1,0 +1,14 @@
+ALTER TABLE `mydb`.`detalle_incidencia` 
+ADD COLUMN `fecha` DATETIME NULL AFTER `areadestino`,
+ADD COLUMN `detalle` VARCHAR(400) NULL AFTER `fecha`;
+ADD COLUMN `idfuncionario` int(11) NULL AFTER `detalle`;
+
+ALTER TABLE `mydb`.`detalle_incidencia`
+ADD INDEX `fk_det_incidencia_funcionario_idx` (`idfuncionario` ASC) VISIBLE;
+;
+ALTER TABLE `mydb`.`detalle_incidencia` 
+ADD CONSTRAINT `fk_det_incidencia_funcionario`
+  FOREIGN KEY (`idfuncionario`)
+  REFERENCES `mydb`.`funcionario` (`idfuncionario`)
+  ON DELETE NO ACTION
+  ON UPDATE NO ACTION;
