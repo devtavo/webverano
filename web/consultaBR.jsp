@@ -4,10 +4,11 @@
     Author     : gustavo-pc
 --%>
 
-<%@page import="be.funcionariobe"%>
+
 <%@page import="java.util.List"%>
-<%@page import="br.personabr"%>
 <%@page import="be.personabe"%>
+<%@page import="br.personabr"%>
+<%@page import="br.personabr"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
@@ -29,18 +30,36 @@
             String date1=request.getParameter("date1"); 
             String date2=request.getParameter("date2"); 
             String estado=request.getParameter("selestado"); 
-   
-            personabe p=new personabe();
+            
+            personabr pbr= new  personabr();
+            personabe pbe=new personabe();
+            pbe.setFuncionario(funcionario);
+            
+//                    List<personabe> lista=new ArrayList();
+            List<personabe> lis= new personabr().consultareclamo(pbe);
            
-        personabr pbr=new personabr();
-        personabe pbe= new personabe();
-        pbe.setIdpersona(Integer.parseInt(funcionario));
-        
-        List<personabe> lis= pbr.obtener(pbe);
- 
+//if(!funcionario.equals("-1")){
+//              
+//                     
+//              
+//           }else if(!date1.equals("") && !date2.equals("")){
+//             
+//                 }else if(!estado.equals("-1") ){
+//             
+//               } 
+//             
        %>
-       
-       <%=funcionario%> 
-   
+       <table>
+     <%
+                                   for(personabe  d : lis) {
+                                           
+                                      %>
+                                       
+                                      <tr><td>           <%=d.getIdpersona()%>   </td></tr>    <br>
+                                      <tr><td><%=d.getFecha()%><br></td></tr>
+                                      <tr><td><%=d.getNombre()%><br></td></tr>
+                                       <%}%>
+                                       
+                                       </table>                      
     </body>
 </html>
