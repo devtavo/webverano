@@ -5,6 +5,7 @@
 --%>
 
 
+<%@page import="java.util.ArrayList"%>
 <%@page import="java.util.List"%>
 <%@page import="be.personabe"%>
 <%@page import="br.personabr"%>
@@ -27,16 +28,18 @@
     <body>
         <% 
             String funcionario=request.getParameter("funcionario"); 
-            String date1=request.getParameter("date1"); 
-            String date2=request.getParameter("date2"); 
-            String estado=request.getParameter("selestado"); 
+//            String date1=request.getParameter("date1"); 
+//            String date2=request.getParameter("date2"); 
+//            String estado=request.getParameter("selestado"); 
             
-            personabr pbr= new  personabr();
-            personabe pbe=new personabe();
-            pbe.setFuncionario(funcionario);
-            
-//                    List<personabe> lista=new ArrayList();
-            List<personabe> lis= new personabr().consultareclamo(pbe);
+            personabe p=new personabe();
+       
+       
+        personabr pbr=new personabr();
+        personabe pbe= new personabe();
+        pbe.setFuncionario(funcionario);
+        
+        List<personabe> los= pbr.consultareclamo(funcionario);
            
 //if(!funcionario.equals("-1")){
 //              
@@ -51,13 +54,14 @@
        %>
        <table>
      <%
-                                   for(personabe  d : lis) {
-                                           
+         for (personabe x : los) {
+                 
+             
                                       %>
                                        
-                                      <tr><td>           <%=d.getIdpersona()%>   </td></tr>    <br>
-                                      <tr><td><%=d.getFecha()%><br></td></tr>
-                                      <tr><td><%=d.getNombre()%><br></td></tr>
+                                      <tr><td> <%=x.getIdpersona()%>   </td></tr>    <br>
+                                      <tr><td><%=x.getFecha()%><br></td></tr>
+                                      <tr><td><%=x.getNombre()%><br></td></tr>
                                        <%}%>
                                        
                                        </table>                      

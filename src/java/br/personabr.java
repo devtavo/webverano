@@ -6,6 +6,7 @@
 package br;
 
 import be.personabe;
+import dao.consultabreclamodao;
 import dao.personadao;
 import java.util.List;
 
@@ -26,5 +27,11 @@ public class personabr {
           }
     public int registraincidencia(personabe e){
         return new personadao().registrarincidencia(e);
+    }
+     public int registradet_incidencia(int funcionario){
+        return new personadao().registrardetincidencia(funcionario);
+    }
+     public List<personabe> consultareclamo(personabe e){
+     return new personadao().getpersonasegunf(e);
     }
 }

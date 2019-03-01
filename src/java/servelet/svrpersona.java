@@ -47,6 +47,8 @@ public class svrpersona extends HttpServlet {
         personabe p = new personabe();
               int c=0;
               int i=0;
+              int di=0;
+              
         p.setNombre(request.getParameter("nombre"));
         p.setDomicilio(request.getParameter("domicilio"));
         p.setTelefono(request.getParameter("tel"));
@@ -65,6 +67,7 @@ public class svrpersona extends HttpServlet {
        int resp= pbr.registrarpersona(p);
          c=pbr.registrarcliente();
          i=pbr.registraincidencia(p);
+         di=pbr.registradet_incidencia(Integer.parseInt(p.getFuncionario()));
        
        if(resp==1){
             response.sendRedirect("index_cliente.html"); 

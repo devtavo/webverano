@@ -5,6 +5,7 @@
  */
 package dao;
 
+import be.detalle_incidenciasbe;
 import be.distritobe;
 import be.funcionariobe;
 import be.personabe;
@@ -82,6 +83,7 @@ public class personadao {
         }
         return r;
     }
+    
     public int registrarincidencia(personabe p){
         int d=0;
             String sql= "INSERT INTO incidencias(idincidencias,idfuncionario, idcliente, idcategoria,idestado,area_idarea) VALUES(?,?,?,?,?,?);";
@@ -96,7 +98,7 @@ public class personadao {
             int idcliente=nuevoIdcliente(c)-1;
             int idcate=1;
             int idesta=1;
-            int idarea=1;
+            int idarea=0;
             PreparedStatement pst=c.prepareCall(sql);
             pst.setInt(1, idinci);
             pst.setInt(2, Integer.parseInt(p.getFuncionario()));
@@ -115,9 +117,9 @@ public class personadao {
         }
         return d;
     }
-    public int registrardetincidencia(){
+    public int registrardetincidencia( int funcionario){
         int di=0;
-            String sql= "insert into detalle_incidencia(iddetalle_incidencia, incidencias_idincidencias, areaorigen, areadestino,fecha, detalle) values(?,?,?,?, timestamp(now()),? );";
+            String sql= "insert into detalle_incidencia(iddetalle_incidencia, incidencias_idincidencias, areaorigen, areadestino,fecha, detalle,idfuncionario) values(?,?,?,?, timestamp(now()),? ,?);";
             Connection c=null;
      try {
                  
@@ -126,15 +128,17 @@ public class personadao {
             int idinci=nuevoIdincidencias(c)-1;
             
             int idcliente=nuevoIdcliente(c)-1;
-            int idcate=1;
-            int idesta=1;
-            int idarea=1;
+            String areain="0";
+            String areafi=null;
+            String deta=" ";
+            
             PreparedStatement pst=c.prepareCall(sql);
             pst.setInt(1, iddet_inci);
-            pst.setInt(di, idinci);
-            pst.setInt(3, 1);
-            pst.setInt(4, 1);
-            pst.setInt(5, di);
+            pst.setInt(2, idinci);
+            pst.setString(3, areain);
+            pst.setString(4, areafi );
+            pst.setString(5,deta);
+            pst.setInt(6, funcionario );
                         
             di=pst.executeUpdate();
             pst.close();
@@ -146,6 +150,7 @@ public class personadao {
         }
         return di;
     }
+    
     public List<personabe> getpersona(personabe e){
         List<personabe> lista= new ArrayList();
          String sql= "select * from persona p, funcionario f where p.idpersona=? and f.idfuncionario=p.funcionario";
@@ -183,6 +188,46 @@ public class personadao {
         }
         
         return lista;
+        
+    }
+    public List<personabe> getpersonasegunf(personabe e){
+        List<personabe> l= new ArrayList();
+         String sql= "select * from persona where funcionario=? ";
+    
+         Connection c=null;
+         c=new base().getMysql();
+         
+        try {
+            PreparedStatement pst= c.prepareCall(sql);
+             pst.setString(1, e.getFuncionario());
+           
+             
+            ResultSet rs=pst.executeQuery();
+            while(rs.next()){
+                
+               e.setIdpersona(rs.getInt("idpersona"));
+               e.setFecha(rs.getString("fecha"));
+               e.setNombre(rs.getString("nombre"));
+               e.setDomicilio(rs.getString("domicilio"));
+               e.setTelefono(rs.getString("telefono"));
+               e.setCelular(rs.getString("celular"));
+               e.setEmail(rs.getString("email"));
+               e.setIddepartamento(rs.getString("iddepartamento"));
+               e.setIdprovincia(rs.getString("idprovincia"));
+               e.setIddistrito(rs.getString("iddistrito"));      
+               e.setIdtipodocumento(Integer.toString(rs.getInt("idtipodocumento")));
+               e.setDescripcion(rs.getString("descripcion"));
+               e.setArchivo(rs.getString("archivo"));
+               e.setDni(rs.getString("dni"));
+               e.setFuncionario(rs.getString("funcionario"));
+               l.add(e);
+               
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(personadao.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        return l;
         
     }
     
