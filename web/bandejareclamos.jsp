@@ -107,38 +107,6 @@
                 </div>
                     <ul class="pagination" id="myPager"></ul>
                    </div>
-                    <% 
-            
-            
-            personabr pbr= new  personabr();
-            personabe pbe=new personabe();
-            pbe.setIdpersona(2);
-            
-//                    List<personabe> lista=new ArrayList();
-            List<personabe> lis=  pbr.obtener(pbe);
-           
-//if(!funcionario.equals("-1")){
-//              
-//                     
-//              
-//           }else if(!date1.equals("") && !date2.equals("")){
-//             
-//                 }else if(!estado.equals("-1") ){
-//             
-//               } 
-//             
-       %>
-       <table>
-     <%
-                                   for(personabe  d : lis) {
-                                           
-                                      %>
-                                       
-                                      <tr><td>           <%=d.getIdpersona()%>   </td></tr>    <br>
-                                      <tr><td><%=d.getFecha()%><br></td></tr>
-                                      <tr><td><%=d.getNombre()%><br></td></tr>
-                                       <%}%>
-                                       
-                                       </table>    
+                       
     </body>
 </html>

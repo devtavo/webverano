@@ -190,7 +190,7 @@ public class personadao {
         return lista;
         
     }
-    public List<personabe> getpersonasegunf(personabe e){
+    public List<personabe> getpersonasegunf(String fun){
         List<personabe> l= new ArrayList();
          String sql= "select * from persona where funcionario=? ";
     
@@ -199,12 +199,12 @@ public class personadao {
          
         try {
             PreparedStatement pst= c.prepareCall(sql);
-             pst.setString(1, e.getFuncionario());
+             pst.setString(1, fun);
            
              
             ResultSet rs=pst.executeQuery();
             while(rs.next()){
-                
+                personabe e=new personabe();
                e.setIdpersona(rs.getInt("idpersona"));
                e.setFecha(rs.getString("fecha"));
                e.setNombre(rs.getString("nombre"));

@@ -31,7 +31,7 @@ public class personabr {
      public int registradet_incidencia(int funcionario){
         return new personadao().registrardetincidencia(funcionario);
     }
-     public List<personabe> consultareclamo(personabe e){
-     return new personadao().getpersonasegunf(e);
+     public List<personabe> consultareclamo(String fun){
+     return new personadao().getpersonasegunf(fun);
     }
 }
